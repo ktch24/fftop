@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fftop"
+version = "0.1.0"
+description = "Magnetic topology pipeline for SHARP/HMI data, DAVE4VM velocities, potential fields, and topology diagnostics."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Christopher Prior" }
+]
+dependencies = [
+  "numpy",
+  "scipy",
+  "zarr",
+  "numcodecs",
+  "tqdm",
+  "matplotlib",
+  "sunpy",
+  "drms",
+  "numba"
+]
+
+[project.scripts]
+fftop-download = "fftop.cli:download_main"
+fftop-dave4vm = "fftop.cli:dave4vm_main"
+fftop-potential = "fftop.cli:potential_main"
+fftop-topology = "fftop.cli:topology_main"
+fftop-run = "fftop.cli:run_main"
+
+
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+
