@@ -17,6 +17,98 @@ ARTop is designed to run on any OS and has the following dependencies: Python 3,
 
 For users who do not have Python installed currently on their machines, we recommend installation via Miniconda 3 (https://docs.conda.io/).
 
+````markdown
+## Installation
+
+The package can be installed directly from the GitHub repository. We recommend using a fresh Python environment.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/<your-github-username>/<your-repository-name>.git
+cd <your-repository-name>
+````
+
+### 2. Create and activate a Python environment
+
+Using `conda`:
+
+```bash
+conda create -n fftop python=3.11
+conda activate fftop
+```
+
+or using `venv`:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+On Windows, activate the `venv` environment with:
+
+```bash
+.venv\Scripts\activate
+```
+
+### 3. Install the package
+
+For a local editable/development install, run:
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install -e .
+```
+
+The editable install means that changes made to the source code are immediately reflected without reinstalling the package.
+
+### 4. Check the installation
+
+From the repository directory, run:
+
+```bash
+python -c "import topology; print('FFTOP topology module imported successfully')"
+```
+
+If the package has been installed correctly, this should print:
+
+```text
+FFTOP topology module imported successfully
+```
+
+## Basic usage
+
+The main topology calculation can be run from Python, for example:
+
+```python
+from topology import process_field_data
+
+process_field_data(
+    param_file="path/to/specifications.txt",
+    ck=64,
+    field_loc="path/to/input_or_zarr_directory",
+    field_tag="377",
+    vel_tag="20",
+    savdir="path/to/output_directory",
+    zarr_file="topology.zarr",
+    steps=(360.0, 360.0, 1.0),
+)
+```
+
+The input data are expected to be stored in a Zarr field store containing the datasets
+
+```text
+bx, by, bz
+Bxp, Byp
+Ux, Uy, Uz
+```
+
+with shape `(nx, ny, nt)`.
+
+```
+```
+
+
 -------------------
 
 Running the code
@@ -25,10 +117,6 @@ Please read through this entire section before running ARTop.
 
 
 In the main code directory, first type:
-
-`make`
-
-which will compile the C++ part of the code.
 
 The next file to consider is `read_data.txt`. This is the only file that needs to be edited in order to run ARTop. Open `read_data.txt' to see a list like:
 
